@@ -1,4 +1,4 @@
-# Obj
+# Obj [![Build Status](https://travis-ci.org/svenfuchs/obj.svg?branch=master)](https://travis-ci.org/svenfuchs/obj)
 
 A Struct replacement that allows default arguments, and omits the
 hash-style API that Struct implements.

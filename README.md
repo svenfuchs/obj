@@ -12,6 +12,8 @@ gem install ruby-obj
 ## Usage
 
 ```ruby
+require 'obj'
+
 class One < Obj.new(:one, two: :default)
 end
 

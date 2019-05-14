@@ -1,6 +1,11 @@
 describe Obj do
   subject { const.new(*args) }
 
+  def wrong_number_of_arguments(given, expected)
+    args = RUBY_VERSION < '2.3' ? '(%s for %s)' : '(given %s, expected %s)'
+    "wrong number of arguments #{args % [given, expected]}"
+  end
+
   describe 'no defaults' do
     let(:const) { Obj.new(:one, :two) }
 
@@ -32,17 +37,17 @@ describe Obj do
     end
 
     describe 'no arguments' do
-      let(:msg) { 'wrong number of arguments (given 0, expected 2)' }
+      let(:msg) { wrong_number_of_arguments(0, 2) }
       it { expect { const.new }.to raise_error ArgumentError, msg }
     end
 
     describe 'missing argument' do
-      let(:msg) { 'wrong number of arguments (given 1, expected 2)' }
+      let(:msg) { wrong_number_of_arguments(1, 2) }
       it { expect { const.new(1) }.to raise_error ArgumentError, msg }
     end
 
     describe 'too many arguments' do
-      let(:msg) { 'wrong number of arguments (given 3, expected 2)' }
+      let(:msg) { wrong_number_of_arguments(3, 2) }
       it { expect { const.new(1, 2, 3) }.to raise_error ArgumentError, msg }
     end
   end
@@ -89,12 +94,12 @@ describe Obj do
     end
 
     describe 'no arguments' do
-      let(:msg) { 'wrong number of arguments (given 0, expected 1..2)' }
+      let(:msg) { wrong_number_of_arguments(0, '1..2') }
       it { expect { const.new }.to raise_error ArgumentError, msg }
     end
 
     describe 'too many arguments' do
-      let(:msg) { 'wrong number of arguments (given 3, expected 1..2)' }
+      let(:msg) { wrong_number_of_arguments(3, '1..2') }
       it { expect { const.new(1, 2, 3) }.to raise_error ArgumentError, msg }
     end
   end

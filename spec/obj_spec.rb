@@ -104,6 +104,17 @@ describe Obj do
     end
   end
 
+  describe 'defining a method' do
+    subject { const.new }
+
+    let(:const) do
+      Obj.new { def foo; :foo; end }
+    end
+
+    it { should respond_to :foo }
+    it { expect(subject.foo).to eq :foo }
+  end
+
   describe 'modules' do
     subject { const.new }
 
